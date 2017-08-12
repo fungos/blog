@@ -53,7 +53,7 @@ Or by command line:
 
 ### Rust Toolchain
 
-With Rustup installed, most of the toolchain management is done in the command line with the rustup command. Getting used to it will surely help in the future.
+With Rustup installed, most of the toolchain management is done in the command line with the Rustup command. Getting used to it will surely help in the future.
 
 First, lets update everything to be sure (required if it is not a fresh install):
 
@@ -61,7 +61,7 @@ First, lets update everything to be sure (required if it is not a fresh install)
 > rustup update
 ```
 
-Then, adding the nightly version of the compiler for trying experimental features and to be able to compile a required tool:
+Then, adding the nightly version of the compiler for trying experimental features and to be able to compile an useful tool (Clippy):
 
 ```dos
 > rustup install nightly
@@ -70,7 +70,9 @@ Then, adding the nightly version of the compiler for trying experimental feature
 
 ### Components
 
-Three core components are recommended to be installed with Rustup so to have a full offline environment. Rust source and Rust documentation are not essential, but are nice to have if you may be offline while writing Rust. RLS on the other side, is essential and should be installed. You can read more about what RLS can do [here](http://www.ncameron.org/blog/what-the-rls-can-do/). Basically, it will enable auto-completion and related code editing features to any IDE supporting the Microsoft Language Server protocol. It is in a way equivalent to C++ Intellisense or Visual Assist. Although it is still under heavy development, I think it is already more usable than both of C++ alternatives on Visual Studio.
+Three core components are recommended to be installed with Rustup so to have a full offline environment. Rust source and Rust documentation are not essential, but are nice to have if you may be offline while writing Rust. RLS on the other side, is essential and should be installed. You can read more about what RLS can do [here](http://www.ncameron.org/blog/what-the-rls-can-do/).
+
+Basically, RLS will enable auto-completion and related code editing features to any IDE supporting the Microsoft Language Server protocol. It is in a way equivalent to C++ Intellisense or Visual Assist. Although it is still under heavy development, I think it is already more usable than both of C++ alternatives on Visual Studio.
 
 ```dos
 > rustup component add rust-src
