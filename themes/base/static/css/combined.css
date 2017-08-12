@@ -13,11 +13,9 @@ button, input[type="button"], input[type="reset"], input[type="submit"] { cursor
 input[type="search"] { box-sizing: content-box; -webkit-appearance: textfield; }
 input[type="search"]::-webkit-search-decoration, input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; }
 textarea { overflow: auto; vertical-align: top; }
-body { margin: 0px; font-family: "Segoe UI", Tahoma, Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255); }
 a { color: rgb(0, 114, 198); text-decoration: none; }
 a:hover { color: rgb(0, 70, 122); text-decoration: underline; }
 [class*="span"] { float: left; min-height: 1px; margin-left: 20px; }
-.container, .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container { width: 940px; }
 .span12 { width: 940px; }
 .row-fluid { width: 100%; }
 .row-fluid::before, .row-fluid::after { display: table; content: ""; line-height: 0; }
@@ -136,17 +134,14 @@ input:focus:required:invalid:focus, textarea:focus:required:invalid:focus, selec
 [class^="icon-24"], [class*=" icon-24"] { width: 24px; height: 24px; line-height: 24px; background-image: url("../images/syncfusion-24b-icons.png"); background-position: 0px 0px; }
 .icon-white[class^="icon-16"], .nav-tabs > .active > a > [class^="icon-"][class^="icon-16"], .nav-tabs > .active > a > [class*=" icon-"][class^="icon-16"], .nav-pills > .active > a > [class^="icon-"][class^="icon-16"], .nav-pills > .active > a > [class*=" icon-"][class^="icon-16"], .nav-list > .active > a > [class^="icon-"][class^="icon-16"], .nav-list > .active > a > [class*=" icon-"][class^="icon-16"], .navbar .nav > li > a > [class^="icon-"][class^="icon-16"], .navbar .nav > li > a > [class*=" icon-"][class^="icon-16"], .navbar-inverse .nav > li > a > [class^="icon-"][class^="icon-16"], .navbar-inverse .nav > li > a > [class*=" icon-"][class^="icon-16"], .dropdown-menu > li > a:hover > [class^="icon-"][class^="icon-16"], .dropdown-menu > li > a:hover > [class*=" icon-"][class^="icon-16"], .dropdown-menu > .active > a > [class^="icon-"][class^="icon-16"], .dropdown-menu > .active > a > [class*=" icon-"][class^="icon-16"], .icon-white[class*=" icon-16"], .nav-tabs > .active > a > [class^="icon-"][class*=" icon-16"], .nav-tabs > .active > a > [class*=" icon-"][class*=" icon-16"], .nav-pills > .active > a > [class^="icon-"][class*=" icon-16"], .nav-pills > .active > a > [class*=" icon-"][class*=" icon-16"], .nav-list > .active > a > [class^="icon-"][class*=" icon-16"], .nav-list > .active > a > [class*=" icon-"][class*=" icon-16"], .navbar .nav > li > a > [class^="icon-"][class*=" icon-16"], .navbar .nav > li > a > [class*=" icon-"][class*=" icon-16"], .navbar-inverse .nav > li > a > [class^="icon-"][class*=" icon-16"], .navbar-inverse .nav > li > a > [class*=" icon-"][class*=" icon-16"], .dropdown-menu > li > a:hover > [class^="icon-"][class*=" icon-16"], .dropdown-menu > li > a:hover > [class*=" icon-"][class*=" icon-16"], .dropdown-menu > .active > a > [class^="icon-"][class*=" icon-16"], .dropdown-menu > .active > a > [class*=" icon-"][class*=" icon-16"] { background-image: url("../images/syncfusion-16w-icons.png"); }
 .icon-white[class^="icon-24"], .nav-tabs > .active > a > [class^="icon-"][class^="icon-24"], .nav-tabs > .active > a > [class*=" icon-"][class^="icon-24"], .nav-pills > .active > a > [class^="icon-"][class^="icon-24"], .nav-pills > .active > a > [class*=" icon-"][class^="icon-24"], .nav-list > .active > a > [class^="icon-"][class^="icon-24"], .nav-list > .active > a > [class*=" icon-"][class^="icon-24"], .navbar .nav > li > a > [class^="icon-"][class^="icon-24"], .navbar .nav > li > a > [class*=" icon-"][class^="icon-24"], .navbar-inverse .nav > li > a > [class^="icon-"][class^="icon-24"], .navbar-inverse .nav > li > a > [class*=" icon-"][class^="icon-24"], .dropdown-menu > li > a:hover > [class^="icon-"][class^="icon-24"], .dropdown-menu > li > a:hover > [class*=" icon-"][class^="icon-24"], .dropdown-menu > .active > a > [class^="icon-"][class^="icon-24"], .dropdown-menu > .active > a > [class*=" icon-"][class^="icon-24"], .icon-white[class*=" icon-24"], .nav-tabs > .active > a > [class^="icon-"][class*=" icon-24"], .nav-tabs > .active > a > [class*=" icon-"][class*=" icon-24"], .nav-pills > .active > a > [class^="icon-"][class*=" icon-24"], .nav-pills > .active > a > [class*=" icon-"][class*=" icon-24"], .nav-list > .active > a > [class^="icon-"][class*=" icon-24"], .nav-list > .active > a > [class*=" icon-"][class*=" icon-24"], .navbar .nav > li > a > [class^="icon-"][class*=" icon-24"], .navbar .nav > li > a > [class*=" icon-"][class*=" icon-24"], .navbar-inverse .nav > li > a > [class^="icon-"][class*=" icon-24"], .navbar-inverse .nav > li > a > [class*=" icon-"][class*=" icon-24"], .dropdown-menu > li > a:hover > [class^="icon-"][class*=" icon-24"], .dropdown-menu > li > a:hover > [class*=" icon-"][class*=" icon-24"], .dropdown-menu > .active > a > [class^="icon-"][class*=" icon-24"], .dropdown-menu > .active > a > [class*=" icon-"][class*=" icon-24"] { background-image: url("../images/syncfusion-24w-icons.png"); }
-.navbar { overflow: visible; margin-bottom: 20px; color: rgb(204, 204, 204); }
 .navbar .container { width: auto; }
 .navbar .brand { float: left; display: block; padding: 0px 10px 2px; margin-left: -10px; font-size: 22px; line-height: 38px; font-weight: 100; color: rgb(255, 255, 255); }
 .navbar .brand:hover { text-decoration: none; background-color: rgb(0, 99, 173); }
 .navbar .divider-vertical { height: 20px; margin: 10px 0px; border-left: 1px solid rgb(255, 255, 255); }
 .navbar .btn, .navbar .btn-group { margin-top: 0px; }
 .navbar .btn-group .btn, .navbar .input-append .btn { margin-top: 0px; }
-.navbar-fixed-top, .navbar-fixed-bottom { position: fixed; right: 0px; left: 0px; z-index: 1030; margin-bottom: 0px; }
 .navbar-fixed-top .navbar-inner, .navbar-static-top .navbar-inner { border-width: 0px 0px 1px; }
 .navbar-fixed-top .navbar-inner, .navbar-fixed-bottom .navbar-inner { padding-left: 0px; padding-right: 0px; }
-.navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container { width: 940px; }
 .navbar-fixed-top { top: 0px; }
 .navbar .nav { position: relative; left: 0px; display: block; float: left; margin: 0px 10px 0px 0px; }
 .navbar .nav.pull-right { float: right; margin-right: 0px; }
@@ -174,3 +169,15 @@ input:focus:required:invalid:focus, textarea:focus:required:invalid:focus, selec
 [class*="tile"]:hover { background-color: rgb(61, 148, 212); cursor: pointer; color: white; text-decoration: none; }
 .datepicker th.next, .datepicker th.prev { font-size: 28px; padding: 4px 0px; }
 .datepicker th.next i, .datepicker th.prev i { margin-top: 8px; }
+body { font-family: "Segoe UI", Tahoma, Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255); }
+
+@media all and (min-width: 1001px) {
+.container, .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container { width: 940px; }
+.navbar-fixed-top, .navbar-fixed-bottom { position: fixed; right: 0px; left: 0px; z-index: 1030; margin-bottom: 0px; }
+.navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container { width: 940px; }
+body { margin: 0px; }
+}
+
+@media all and (max-width: 1000px) {
+body { margin: 0px 20px 0px 20px; }
+}

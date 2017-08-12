@@ -102,9 +102,17 @@ footer {
   margin: 0 0 10px 0;
 }
 
-.posts {
-  text-align: center;
-  padding-top: 5%;
+@media all and (max-width: 1000px) {
+  .posts {
+    text-align: center;
+  }
+}
+
+@media all and (min-width: 1001px) {
+  .posts {
+    padding-top: 7%;
+    text-align: center;
+  }
 }
 
 .posts li {
@@ -166,7 +174,6 @@ p {
 }
 
 .post-header {
-  padding: 20px 40px 20px 40px;
   text-align: center;
 }
 
