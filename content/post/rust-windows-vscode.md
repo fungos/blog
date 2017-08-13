@@ -68,15 +68,16 @@ Then, adding the nightly version of the compiler for trying experimental feature
 ```
 
 
-### Components
+### RLS and Components
 
-Three core components are recommended to be installed with Rustup so to have a full offline environment. Rust source and Rust documentation are not essential, but are nice to have if you may be offline while writing Rust. RLS on the other side, is essential and should be installed. You can read more about what RLS can do [here](http://www.ncameron.org/blog/what-the-rls-can-do/).
+Four core components are recommended to be installed with Rustup so to have a full offline environment. Rust source and Rust documentation are not essential, but are nice to have if you may be offline while writing Rust. RLS on the other side, is essential and should be installed and it requires the rust-analysis component. You can read more about what RLS can do [here](http://www.ncameron.org/blog/what-the-rls-can-do/).
 
 Basically, RLS will enable auto-completion and related code editing features to any IDE supporting the Microsoft Language Server protocol. It is in a way equivalent to C++ Intellisense or Visual Assist. Although it is still under heavy development, I think it is already more usable than both of C++ alternatives on Visual Studio.
 
 ```dos
 > rustup component add rust-src
 > rustup component add rust-docs
+> rustup component add ryst-analysis
 > rustup component add rls
 > rustup update
 ```
@@ -92,9 +93,22 @@ To install it, suffice to use Cargo:
 > cargo install rustfmt
 ```
 
-It will be used by VSCode Rust Extension to automatically format Rust code being edited.
+It will be used by VSCode Rust Extension to automatically format Rust code being edited. 
 
 > Note: Rustfmt will be asked to be installed by Visual Studio Code if it isn't already installed anyway.
+
+But rustfmt is in active development and the recommended way is by using the nightly version:
+
+```dos
+> rustup run nightly cargo install rustfmt-nightly
+```
+
+But now, formating your code should be done by issuing the command bellow, indicating it uses the nightly toolchain  otherwise and error loading its dependencies will happen:
+
+```dos
+> cargo +nightly fmt
+```
+
 
 ### Clippy
 
@@ -103,14 +117,18 @@ Clippy is another jewel of Rust, it is the second best friend (after Rust compil
 Again, to install, use Cargo (and be sure to have the nightly toolchain in use):
 
 ```dos
-> rustup default nightly
-> cargo install clippy
+> rustup run nightly cargo install clippy
 ```
 
 > Note: Installing these tools with cargo means compiling them, and Rust compile times are not really the best. So, go take a coffee.
 
 > Note: Clippy will be asked to be installed by Visual Studio Code if it isn't already installed anyway.
 
+To check a Rust project using Clippy:
+
+```dos
+> cargo clippy
+```
 
 ## Visual Studio Code
 
@@ -265,3 +283,8 @@ This is a quick power shell script I hacked together in a gist for automatizing 
 ## Feedback
 
 Help me improving this text by submitting fixes for wrong wording/phrasing or typos in [this repo issue tracker](https://github.com/fungos/fungos.github.io/issues) or by commenting on twitter or elsewhere!
+
+## Updates
+
+- Fixed script to consider the fresh VSCode 64bits. Thanks @colemickens (Reddit).
+- Fixed missing analysis component and rustfmt-nightly on text and script. Thanks @dodheim (Reddit).
