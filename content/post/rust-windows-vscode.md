@@ -173,7 +173,7 @@ It will also download and install any required dependency.
 
 #### Native Debug
 
-This one is not really needed, but I recommend use this to automatically enable VSCode to set breakpoints on Rust code. Otherwise, it would require tuning user settings by setting `debug.allowBreakpointsEverywhere`.
+This one is not really needed, but I recommend use this to automatically enable VSCode to set breakpoints on Rust code. Otherwise, it would require tuning user settings (`CTRL+,`) and setting `debug.allowBreakpointsEverywhere`.
 
 Extension name: `webfreak.debug`
 
@@ -184,11 +184,15 @@ Extension name: `webfreak.debug`
 
 ### Visualizers
 
+> Note: This section will soon be deprecated. A [recent commit](https://github.com/rust-lang/rust/pull/43221) on Rust, is now embedding visualization information inside PDBs. This is already valid for Nightly toolchain, but Stable still requires this manual step.
+
 With Rust MSVC toolchain comes some type visualizers for Visual Studio Debugger (Natvis), these can be used to ease the visualization of some very few Rust types within the Debugger. Sadly, there are still limitations of what can be specified in a Natvis file.
 
 The downside is that the installation of the visualization files are a bit manual at the moment, so this is the hardest part of all the Rust environment setup.
 
 The files in question are in `%HOMEPATH%\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\etc` and must be copied to `%HOMEPATH%\.vscode\extensions\ms-vscode.cpptools-0.12.2\debugAdapters\vsdbg\bin\Visualizers` (note the version on ms-vscode.cpptools path, this can be different for your case).
+
+If a custom visualizer is needed, an entry `"visualizerFile"` can be set inside `launch.json` (environment variables can be referenced as `${env:VAR}`), so for example, one can set: `"visualizerFile": "${env:HOMEPATH}/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/etc/libcore.natvis"`. For the moment only one file can be used, an [issue](https://github.com/Microsoft/vscode-cpptools/issues/925) is open to make it accept multiple files thought.
 
 
 ## Debugging
@@ -288,3 +292,4 @@ Help me improving this text by submitting fixes for wrong wording/phrasing or ty
 
 - Fixed script to consider the fresh VSCode 64bits. Thanks @colemickens (Reddit).
 - Fixed missing analysis component and rustfmt-nightly on text and script. Thanks @dodheim (Reddit).
+- Added more information about how to add a natvis file into `launch.json` and mention that soon it will not be required, as it will be automatically embedded onto PDB files.
