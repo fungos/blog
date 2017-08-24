@@ -70,22 +70,25 @@ Then, adding the nightly version of the compiler for trying experimental feature
 
 ### RLS and Components
 
-Four core components are recommended to be installed with Rustup so to have a full offline environment. Rust source and Rust documentation are not essential, but are nice to have if you may be offline while writing Rust. RLS on the other side, is essential and should be installed and it requires the rust-analysis component. You can read more about what RLS can do [here](http://www.ncameron.org/blog/what-the-rls-can-do/).
+RLS is essential and the main component, but it comes with its own requirements: the Rust source code, documentation and the analysis component.
+The source and documentation will be used by analysis component to feed RLS with required data about existing crates and code. Read more about what RLS can do [here](http://www.ncameron.org/blog/what-the-rls-can-do/).
 
-Basically, RLS will enable auto-completion and related code editing features to any IDE supporting the Microsoft Language Server protocol. It is in a way equivalent to C++ Intellisense or Visual Assist. Although it is still under heavy development, I think it is already more usable than both of C++ alternatives on Visual Studio.
+Basically, RLS enable auto-completion, documentation tooltips and related code editing features to any IDE supporting the Microsoft Language Server protocol. It is in a way equivalent to C++ Intellisense or Visual Assist. Although it is still under heavy development, I think it is already more usable than both of C++ alternatives on Visual Studio.
 
 ```dos
+> rustup default nightly
 > rustup component add rust-src
 > rustup component add rust-docs
-> rustup component add ryst-analysis
+> rustup component add rust-analysis
 > rustup component add rls
 > rustup update
 ```
 
+> Note: Both `rust-analysis` and `rls` can only be installed by using the nightly toolchain. Nightly can be set as the default toolchain or by passing the flag `--toolchain nightly` to the Rustup command line.
 
 ### Rustfmt
 
-Rustfmt will automatically format the code accordingly to the current code style standard. Opposed to languages as C or C++ where each code base has its own style, Rust (and for the matter, most recent languages) enforce a standard style on your code, you may think it is too intrusive, but it is better for everyone on the end. More information about styling can be found on rustfmt [RFC repository](https://github.com/rust-lang-nursery/fmt-rfcs/blob/master/guide/guide.md).
+Rustfmt will automatically format the code accordingly to the current code style standard. Opposed to languages as C or C++ where each code base has its own style, Rust (and for the matter, most recent languages) enforce a standard style on the code. You may think it is too intrusive, but it is better for everyone by the end. More information about styling can be found on rustfmt [RFC repository](https://github.com/rust-lang-nursery/fmt-rfcs/blob/master/guide/guide.md).
 
 To install it, suffice to use Cargo:
 
@@ -103,7 +106,7 @@ But rustfmt is in active development and the recommended way is by using the nig
 > rustup run nightly cargo install rustfmt-nightly
 ```
 
-But now, formating your code should be done by issuing the command bellow, indicating it uses the nightly toolchain  otherwise and error loading its dependencies will happen:
+Now, formating code should be done by issuing the command bellow, indicating it uses the nightly toolchain otherwise and error loading its dependencies will happen:
 
 ```dos
 > cargo +nightly fmt
@@ -132,7 +135,7 @@ To check a Rust project using Clippy:
 
 ## Visual Studio Code
 
-I've tried some different IDEs, you can take a look [here](https://areweideyet.com/) for some alternatives IDEs, and their current support state. But from all these, I believe VSCode (at the moment) is the best and most complete mostly due to the [Language Server Protocol](https://github.com/Microsoft/language-server-protocol)/RLS. 
+I've tried some different IDEs (take a look [here](https://areweideyet.com/) for some alternatives and their current support state), but I believe VSCode (at the moment) is the best and most complete mostly due to the [Language Server Protocol](https://github.com/Microsoft/language-server-protocol)/RLS. 
 
 > Note: The second best is [IntelliJ Rust](https://intellij-rust.github.io/) and now it is [officially supported by JetBrains](https://blog.jetbrains.com/blog/2017/08/04/official-support-for-open-source-rust-plugin-for-intellij-idea-clion-and-other-jetbrains-ides/). The problem is that it is heavy. I wouldn't recommend it unless you're already have it. Also, it does not support debugging, but this is being worked on.
 
@@ -192,7 +195,7 @@ The downside is that the installation of the visualization files are a bit manua
 
 The files in question are in `%HOMEPATH%\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\etc` and must be copied to `%HOMEPATH%\.vscode\extensions\ms-vscode.cpptools-0.12.2\debugAdapters\vsdbg\bin\Visualizers` (note the version on ms-vscode.cpptools path, this can be different for your case).
 
-If a custom visualizer is needed, an entry `"visualizerFile"` can be set inside `launch.json` (environment variables can be referenced as `${env:VAR}`), so for example, one can set: `"visualizerFile": "${env:HOMEPATH}/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/etc/libcore.natvis"`. For the moment only one file can be used, an [issue](https://github.com/Microsoft/vscode-cpptools/issues/925) is open to make it accept multiple files thought.
+If a custom visualizer is needed, an entry `"visualizerFile"` can be set inside `launch.json` (environment variables can be referenced as `${env:VAR}`), so for example, one can set: `"visualizerFile": "${env:HOMEPATH}/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/etc/libcore.natvis"`. For the moment, only one file can be used, an [issue](https://github.com/Microsoft/vscode-cpptools/issues/925) is open to make it work with multiple files.
 
 
 ## Debugging
@@ -293,3 +296,4 @@ Help me improving this text by submitting fixes for wrong wording/phrasing or ty
 - Fixed script to consider the fresh VSCode 64bits. Thanks @colemickens (Reddit).
 - Fixed missing analysis component and rustfmt-nightly on text and script. Thanks @dodheim (Reddit).
 - Added more information about how to add a natvis file into `launch.json` and mention that soon it will not be required, as it will be automatically embedded onto PDB files.
+- Add information and fix typo. Closes [issue #1](https://github.com/fungos/fungos.github.io/issues/1) by @TheCycoONE (Github).
