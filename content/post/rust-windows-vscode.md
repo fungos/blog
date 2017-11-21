@@ -80,7 +80,7 @@ Basically, RLS enable auto-completion, documentation tooltips and related code e
 > rustup component add rust-src
 > rustup component add rust-docs
 > rustup component add rust-analysis
-> rustup component add rls
+> rustup component add rls-preview
 > rustup update
 ```
 
