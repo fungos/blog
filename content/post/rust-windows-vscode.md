@@ -297,3 +297,4 @@ Help me improving this text by submitting fixes for wrong wording/phrasing or ty
 - Fixed missing analysis component and rustfmt-nightly on text and script. Thanks @dodheim (Reddit).
 - Added more information about how to add a natvis file into `launch.json` and mention that soon it will not be required, as it will be automatically embedded onto PDB files.
 - Add information and fix typo. Closes [issue #1](https://github.com/fungos/fungos.github.io/issues/1) by @TheCycoONE (Github).
+- Update rustup rls component name to rls-preivew. Closes [issue #2](https://github.com/fungos/fungos.github.io/issues/2) by @cbordeman  (Github).
