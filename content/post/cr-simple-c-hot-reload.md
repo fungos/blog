@@ -42,11 +42,11 @@ The other option would be doing hot-reloading of the runtime code as we change i
 
 ### Hot Reloading
 
-One very known solution is [RuntimeCompiledCPlusPlus (RC++)][5], other than that, there is nothing else **ready-to-use** even if this is a somewhat common practice privately. So first, lets thanks [Doug Binks][6] and [enkisoftware][12] for publishing RC++ with an open source license, this is a much required improvement over the situation.
+One very known solution is [RuntimeCompiledCPlusPlus (RCC++)][5], other than that, there is nothing else **ready-to-use** even if this is a somewhat common practice privately. So first, lets thanks [Doug Binks][6] and [enkisoftware][12] for publishing RCC++ with an open source license, this is a much required improvement over the situation.
 
-RC++ is a full featured solution, and this comes with its own amount of complexity. On my case, I didn't need all features it offers, but I strongly recommends evaluating it when deciding which solution to take as each one has its pros and cons. To know more about its design and usage I recommend reading [this article][13].
+RCC++ is a full featured solution, and this comes with its own amount of complexity. On my case, I didn't need all features it offers, but I strongly recommend evaluating it when looking for a solution, as each one has its pros and cons. To know more about its design and usage, I recommend reading [this article][13].
 
-Another good thing about RC++ is that it has listing of some [alternatives][7] solutions on code hot-reloading, including some nice posts by people that use it for actual development like [this post][8] from [Our Machinery][9]. Sadly, none of the projects with source code seems ready to use, as they look more like experimentation projects and most of them if not all, don't have multi platform support or are simple barely usable at all.
+Another good thing about RCC++ is that it has listing of some [alternatives][7] solutions on code hot-reloading, including some nice posts by people that use it for actual development like [this post][8] from [Our Machinery][9]. Sadly, none of the projects with source code seems ready to use, as they look more like experimentation projects and most of them if not all, don't have multi platform support or are simple barely usable at all.
 
 So, I decided to write one that I hope to be simple but also usable by anyone:
 
@@ -151,8 +151,6 @@ Please, post corrections and suggestions about this post by opening an issue [he
 [7]: https://github.com/RuntimeCompiledCPlusPlus/RuntimeCompiledCPlusPlus/wiki/Alternatives
 [8]: http://ourmachinery.com/post/dll-hot-reloading-in-theory-and-practice/
 [9]: http://ourmachinery.com/
-[10]: https://github.com/fungos/cr
-[11]: https://github.com/fungos/cr
 [12]: https://www.enkisoftware.com
 [13]: http://runtimecompiledcplusplus.blogspot.ca/2016/04/runtime-compiled-c-article-available.html
 [14]: http://ourmachinery.com/post/little-machines-working-together-part-2/
