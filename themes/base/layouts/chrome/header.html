@@ -6,7 +6,10 @@
 {{ template "theme/chrome/includes.html" . }}
 <link rel="shortcut icon" href="/images/icon.ico">
 <link rel="canonical" href="{{ .Permalink }}">
-<link href="/rss.xml" type="application/atom+xml" rel="alternate" title="{{ .Site.Title }}">
+{{ if .RSSLink }}
+<link href="{{ .RSSLink }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" />
+<link href="{{ .RSSLink }}" rel="feed" type="application/rss+xml" title="{{ .Site.Title }}" />
+{{ end }}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/vs2015.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
