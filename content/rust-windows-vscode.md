@@ -2,6 +2,7 @@
 title = "Setting Up a Rust Environment on Windows"
 date = 2017-08-12
 draft = false
+aliases = ["/blog/2017/08/12/setting-up-a-rust-environment-on-windows/"]
 
 [texonomies]
 tags = ["rust", "windows", "vscode", "setup"]

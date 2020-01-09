@@ -2,6 +2,7 @@
 title = "cr.h: A Simple C Hot Reload Header-only Library"
 date = 2017-11-20
 draft = false
+aliases = ["/blog/2017/11/20/cr.h-a-simple-c-hot-reload-header-only-library/"]
 
 [taxonomies]
 tags = ["c/c++", "live", "reload"]
