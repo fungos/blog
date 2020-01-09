@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+
+{% block content %}
+<nav id="overlord" class="overlord" >
+  {{ macros::mini_logo(classes="", title=config.title, siteurl=config.base_url, logourl=config.extra.profile) }}
+</nav>
+
+<section class="post_container">
+  <article>
+    {% block post %}
+      <h1 class="article_title"><a href="{{page.permalink}}" id="article_link">{{ page.title }}</a></h1>
+      {{ macros::frontmatter(classes="frontmatter_page", date=page.date, word_count=page.word_count, read_time=page.reading_time) }}
+      {{ page.content | safe }}
+      {% endblock post %}
+  </article>
+</section>
+{% endblock content %}

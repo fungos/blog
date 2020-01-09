@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+
+
+{% block content %}
+<header class="header">
+  {% block header %}
+  <figure class="user_logo">
+      <a href="{{config.base_url}}" style="background-image: url({{config.base_url}}/{{config.extra.profile}}"></a>
+  </figure>
+  <h2 class="site_title">{{config.title}}</h2>
+  <div>{{config.description | markdown(inline=true) | safe }}</div>
+  {{ macros::social_list(classes="header_list", bsize="small", extra=config.extra, siteurl=config.base_url, rss=config.generate_rss) }}
+  {% endblock header %}
+</header>
+
+{% if toc %}
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+      <ul>
+      {% for h1 in toc %}
+        <li><a href="{{h1.permalink | safe}}" class="toc-link">{{ h1.title }}</a>
+        {% if h1.children %}
+          <ul>
+          {% for h2 in h1.children %}
+            <li><a href="{{h2.permalink | safe}}" class="toc-link">{{ h2.title }}</a></li>
+          {% endfor %}
+          </ul>
+          {% endif %}
+        </li>
+      {% endfor %}
+      </ul>
+    </nav>
+  </div>
+</div>
+{% endif %}
+
+<section class="post_list">
+    {% for page in paginator.pages %}
+      <article id="{{page.title}}" class="post_list_item">
+        <h1 class="article_title" >
+          <a href="{{page.permalink}}"  id="article_link" >{{page.title}}</a>
+        </h1>
+          {% if page.date %}
+            {{ macros::frontmatter(classes="", date=page.date, word_count=page.word_count, read_time=page.reading_time) }}
+          {% else %}
+            {{ macros::frontmatter(classes="", date="", word_count=page.word_count, read_time=page.reading_time) }}
+          {% endif %}
+          {% if page.summary %}
+            <p class="article_content">{{ page.summary | safe }}</p>
+          {% else %}
+            <p class="article_content">{{ page.content | striptags | truncate | safe }}</p>
+          {% endif %}
+        <a class="button small" href="{{page.permalink}}">Continue Reading →</a>
+      </article>
+    {% endfor %}
+</section>
+{% endblock content %}
+
+
+
+{% block pagination %}
+  <nav class="pagination">
+    {% if paginator.previous %}
+      <span class="prev" ><a rel="prev" href="{{paginator.previous}}" class="button medium font_faint">← prev</a></span>
+    {% endif %}
+
+    {% if paginator.next %}
+      <span class="next" ><a rel="next" href="{{paginator.next}}" class="button medium font_faint">next →</a></span>
+    {% endif %}
+  </nav>
+{% endblock pagination %}
+
+{% block js_body %}
+  <script type="text/javascript" src="{{ get_url(path="even.js", trailing_slash=false) }}"></script>
+{% endblock js_body %}

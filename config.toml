@@ -1,0 +1,21 @@
+base_url = "https://fungos.github.io"
+title = "fungos' home"
+description = "a bit of anything"
+default_language = "en"
+compile_sass = true
+highlight_code = true
+build_search_index = false
+theme = "mergo"
+generate_rss = true
+
+taxonomies = [
+	{name = "categories", rss = true},
+	{name = "tags", rss = true},
+]
+
+[extra]
+profile = "logo.png"
+website = "fungos.github.io"
+github = "fungos"
+twitter = "fungos"
+

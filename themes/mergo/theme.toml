@@ -1,0 +1,19 @@
+name = "mergo"
+description = "A simple blog Theme focused on writing, inspired by svbtle"
+license = "MIT"
+min_version = "0.4.1"
+demo = "https://ergo.liquidthink.net"
+
+[author]
+name = "Danny Grein"
+homepage = "https://fungos.github.io"
+
+[original]
+name = "Andrew Plaza"
+homepage = "https://liquidthink.net"
+repo = "https://github.com/insipx/Ergo"
+
+[extra]
+pages = [
+	{url = "$BASE_URL/about", name = "About"}, 
+]
