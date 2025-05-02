@@ -3,15 +3,17 @@ title = "fungos' home"
 description = "a bit of anything"
 default_language = "en"
 compile_sass = true
-highlight_code = true
 build_search_index = false
 theme = "mergo"
-generate_rss = true
+generate_feeds = true
 
 taxonomies = [
 	{name = "categories", rss = true},
 	{name = "tags", rss = true},
 ]
+
+[markdown]
+highlight_code = true
 
 [extra]
 profile = "logo.png"

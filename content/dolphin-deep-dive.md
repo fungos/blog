@@ -15,8 +15,9 @@ or, how systemd broke my file manager.
 
 ### TL;DR
 
-_Systemd_ broke my file manager and I lost about 4 hours investigating it. But I suffered less than
-if I was using Windows. Jump to the [conclusion](#conclusion) to see why.
+This post documents _my deep dive_ into debugging a frustrating issue with _KDE Dolphin's_ startup
+delay, caused by a kernel incompatibility with an upgraded _systemd_. Here is how I identified the
+issue and resolved it.
 
 ### A bit about my linux background
 
@@ -24,8 +25,8 @@ I'm a long time linux desktop user (since 1998) and other than a few times where
 linux internals (for learning, programming or for fun), I can't remember the last time I actually had to
 do it to solve anything.
 
-I did have moments where I had fun tuning my system for no sensible reason, including custom configured
-kernels with minor personal patches here and there. I also did have my Gentoo years where everything was
+I did have moments where I had fun tuning my system for no sensible reason, including custom-configured
+kernels with minor personal patches here and there. I also had my Gentoo years where everything was
 statically built with custom compiler flags and tweaks for "performance". 
 
 As a system administrator, I did maintain some servers (as work and at home). But maybe in the last 10
@@ -47,7 +48,7 @@ In all my years as a home linux desktop user, I barely had any issues. Until rec
 I decided to write this post to myself and to document my steps investigating a problem that have been
 occurring to me in the last few weeks, which I've been delaying to check. After reading the
 [O(n^2), again, now in WMI](https://randomascii.wordpress.com/2019/12/08/on2-again-now-in-wmi/) post
-by **Bruce Dawson** on how he investigated and found the reason of multi-minute delays on his workstation,
+by **Bruce Dawson** on how he investigated and found the reason for multi-minute delays on his workstation,
 I thought "why not try the same with my issue and see where this takes me? It could be interesting...". 
 Here is it, and I hope it is.
 
@@ -126,11 +127,11 @@ futex(0x55e72722ac90, FUTEX_WAIT_PRIVATE, 0, NULL^C) = ? ERESTARTSYS (To be rest
 <delay, ctrl+c>
 ```
 
-This show us that we're waiting for something.
+This shows us that we're waiting for something.
 Most of the output shows some communication happening between user-space and kernel-space, which could be _dbus_ working.
 _futex_ is a syscall for user space lock used for shared-memory synchronization, _IPC_, etc.
 
-Alright, so it is time to grab that backtrace. Lets launch within _GDB_ and see what we can get from it. It may give some further hints at
+Alright, so it is time to grab that backtrace. Let's launch within _GDB_ and see what we can get from it. It may give some further hints at
 what exactly it is waiting for:
 
 ```bash
@@ -205,7 +206,7 @@ My next step would be to try to have more information on the stack trace and if 
 tell me at least which kind of device I was having problem with.
 
 I looked around my distro for KDE's debug symbols and couldn't find where or if they are available.
-Luckily linux, _KDE_, _Qt_, etc. are open source, it would _only_ need to get to build it myself. :)
+Luckily _Linux_, _KDE_, _Qt_, etc. are open source, it would _only_ need to get to build it myself. :)
 
 ## Intermission: C and C++ build systems trauma
 
@@ -218,7 +219,7 @@ migrated in recent versions to an even worse thing called _Meson_. Which basical
 way more complicated than the normal C build system story already is.
 
 Logically, if building _GTK_ was hard then building an entire desktop environment like _KDE_ would
-be a lot harder right?
+be a lot harder, right?
 
 Luckily the people at _KDE_ (and _Qt_) decided to use _CMake_ as their build system and did a nice 
 bootstrap setup. It is not perfect and other than a minor _perl_ hiccup, everything worked like a charm!
@@ -227,7 +228,7 @@ bootstrap setup. It is not perfect and other than a minor _perl_ hiccup, everyth
 
 Seriously, _CMake_ is not perfect but if you don't use it you're making things worse for **everyone**.
 
-The build itself was long (I believe about ~1h as I didn't time it) to get `dolphin` and `kio` ready.
+The build itself was long (I believe approximately one hour as I didn't time it) to get `dolphin` and `kio` ready.
 
 ## Debug symbols, the solution?
 
@@ -288,8 +289,8 @@ Thread 1 "dolphin" received signal SIGINT, Interrupt.
 (gdb) 
 ```
 
-Now we have a nice stack. This reveals a lot of stuff we missed in the first try, mostly are uninsteresting details.
-The real nice thing there is that now we know *which* device is being queried via _dbus_, which is..._UPower_?
+Now we have a nice stack. This reveals a lot of stuff we missed in the first try, mostly are uninteresting details.
+The really nice thing there is that now we know *which* device is being queried via _dbus_, which is..._UPower_?
 Wait, what is happening here? **WHY** _Dolphin_ would try to query some _power_ related device white querying
 up storage stuff?
 
@@ -299,7 +300,7 @@ on _KDE TechBase_ wiki. That page explains that _Solid_ is a kind of _Hardware D
 some features it provides is _Listing Devices_. In this page there is a tutorial on how your program
 can use it, but mostly important, there is information about a `solid-hardware` tool to use on command line.
 
-Lets try it:
+Let's try it:
 
 ```bash
 ➜  ~ solid-hardware list
@@ -316,7 +317,7 @@ I got the same output messages about unknown signals and a new interesting error
 timeout error.
 
 Checking again the stack trace we see that _Solid_ device manager frontend will request to `loadBackends()`
-in `ManagerBasePrivate`, which in turn [process all kind of backends](https://cgit.kde.org/solid.git/tree/src/solid/devices/managerbase.cpp?id=e33da0b273312877770d14ee9b6906acfacba8d0#n65) 
+in `ManagerBasePrivate`, which in turn [processes all kinds of backends](https://cgit.kde.org/solid.git/tree/src/solid/devices/managerbase.cpp?id=e33da0b273312877770d14ee9b6906acfacba8d0#n65) 
 indiscriminately as it is agnostic about its clients intentions.
 
 Now we know that:
@@ -343,7 +344,7 @@ So why does it timeout? `man upower` gives a few options, lets try some commands
 (upower:6427): UPower-WARNING **: 22:22:36.230: Cannot connect to upowerd: Error calling StartServiceByName for org.freedesktop.UPower: Failed to activate service 'org.freedesktop.UPower': timed out (service_start_timeout=25000ms)
 ```
 
-Sure. So _upowerd_ daemon is unreachable for some reason. If we ask _systemd_ to start it:
+Sure. So the _upowerd_ daemon is unreachable for some reason. If we ask _systemd_ to start it:
 
 ```bash
 ➜  ~ sudo systemctl start upower
@@ -380,7 +381,7 @@ the issue I was having.
 A _systemd_ [change](https://github.com/systemd/systemd/blob/v243/README#L77) that makes use of a kernel 
 feature unsupported on my kernel `4.9.202` broke my file manager.
 
-Manjaro delivered a _systemd_ upgrade without **enforcing** a minimal kernel version. 
+Manjaro delivered a _systemd_ upgrade without **enforcing** the minimal kernel version required. 
 In Manjaro defense, they clearly stated this on their changelog, but we shouldn't expect people to 
 read it.
 

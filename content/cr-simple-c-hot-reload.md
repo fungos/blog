@@ -12,7 +12,7 @@ categories = ["programming", "gamedev"]
 toc = true
 +++
 
-Recently I've been back to hobby coding simple C stuff, and one project that I'm doing with a friend tries to simple emulate some old game. The idea is really basic, but we want to do it in the C-style without over engineering or losing track of the hobby feeling.
+Recently I've been back to hobby coding simple C stuff, and one project that I'm doing with a friend tries to simply emulate some old game. The idea is really basic, but we want to do it in the C-style without over engineering or losing track of the hobby feeling.
 
 But! It is really hard to not care at least a bit, even if it is just hobby stuff. I got literally side-tracked at one point and here I describe why and the resulting product of this.
 
@@ -41,15 +41,15 @@ Independent of which way we decided to go with, I had already some expectations 
 
 I've checked some scripting languages and none of them fit most of the listed requirements. The better ones are slow or complex and the faster ones (as Lua) have annoying syntax. I mostly based my evaluation on [this][0] very nice listing with some benchmarks and code samples.
 
-In the other hand, creating a kind of C script is not that simple, it requires much more code to achieve something usable than integrating some ready-to-use scripting language. There is a bunch of libraries and tools that can help, like embedding a simple compiler as [TCC][1] or one complex as [libclang/libtooling][2], or even maybe something that already embedded the compiler for us, as [C-Toy][3] or [CINT][4]. But that adds a lot of dependency code, requires too much fiddling with build systems, still requires writing bindings and aren't really _easy to use_.
+On the other hand, creating a kind of C script is not that simple, it requires much more code to achieve something usable than integrating some ready-to-use scripting language. There is a bunch of libraries and tools that can help, like embedding a simple compiler as [TCC][1] or one complex as [libclang/libtooling][2], or even maybe something that already embedded the compiler for us, as [C-Toy][3] or [CINT][4]. But that adds a lot of dependency code, requires too much fiddling with build systems, still requires writing bindings and aren't really _easy to use_.
 
 The other option would be doing hot-reloading of the runtime code as we change it. Even if this may appear complex, it is at least not as complex as to write a simple language. One downside is that opposed to scripts, this area does not have much public content in both articles and source code forms. Luckily enough, this idea fits with my concept of hobby stuff and is doable in my free time.
 
 ### Hot Reloading
 
-One very known solution is [RuntimeCompiledCPlusPlus (RCC++)][5], other than that, there is nothing else **ready-to-use** even if this is a somewhat common practice privately. So first, lets thanks [Doug Binks][6] and [enkisoftware][12] for publishing RCC++ with an open source license, this is a much required improvement over the situation.
+One very known solution is [RuntimeCompiledCPlusPlus (RCC++)][5], other than that, there is nothing else **ready-to-use** even if this is a somewhat common practice privately. So first, let's thanks [Doug Binks][6] and [enkisoftware][12] for publishing RCC++ with an open source license, this is a much required improvement over the situation.
 
-RCC++ is a full featured solution, and this comes with its own amount of complexity. On my case, I didn't need all features it offers, but I strongly recommend evaluating it when looking for a solution, as each one has its pros and cons. To know more about its design and usage, I recommend reading [this article][13].
+RCC++ is a full featured solution, and this comes with its own amount of complexity. I didn't need all features it offers, but I strongly recommend evaluating it when looking for a solution, as each one has its pros and cons. To know more about its design and usage, I recommend reading [this article][13].
 
 Another good thing about RCC++ is that it has listing of some [alternatives][7] solutions on code hot-reloading, including some nice posts by people that use it for actual development like [this post][8] from [Our Machinery][9]. Sadly, none of the projects with source code seems ready to use, as they look more like experimentation projects and most of them if not all, don't have multi platform support or are simple barely usable at all.
 
@@ -74,7 +74,7 @@ Being simple and reusable comes with not being too intrusive and having a simple
 
 Before implementing `cr.h`, I read everything I could find about how people deal with this and what the most frequent problems and issues. I will try to explain how my implementation differ from others and how I've solved some of the more common issues.
 
-The core of the system is really basic and do not differ from most of the home grown solutions. The idea is to split the code into a thin host application executable and the core of the program into a dynamically loadable binary (shared object or dll) guest.
+The core of the system is really basic and does not differ from most of the home grown solutions. The idea is to split the code into a thin host application executable and the core of the program into a dynamically loadable binary (shared object or dll) guest.
 
 The less the host needs to know the better and easier it becomes. Ideally it should just be able to load the binary, monitor for new updates, unload the current one saving any required state then loading the new up-to-date binary and passing over the saved state, repeating the process until terminated by the user.
 
@@ -82,7 +82,7 @@ The usage is really simple, the very first thing is to initialize the system wit
 
 The `cr_plugin` context contains some internal private stuff, but also some information useful to the application itself. One is the `version` field, a value incremented each time a reload is successful or decremented in case of a rollback. Rollbacks may happen when a crash or an issue is detected, the system will try to safely unload the problematic binary and reload a previous working one. In case of rollback, a `failure` code will be set in the plugin context and the new loaded binary may use this information to give some useful feedback or dealing with it in an appropriate fashion for the application.
 
-Once up and running, each time the loadable binary is rebuilt, `cr.h` will trigger a reload as it is monitoring for file changes based on the file time stamp. Each time an update, a load or an unload happens, `cr.h` will pass the info down to the application by using the `cr_op` operation flag: `CR_LOAD`, `CR_STEP` or `CR_UNLOAD`. For example, in case of unload the application may be able to intercept and deal with something before the binary is fully unloaded (like saving some internal state).
+Once up and running, each time the loadable binary is rebuilt, `cr.h` will trigger a reload as it is monitoring for file changes based on the file time stamp. Each time there is an update, a load or an unload happens, `cr.h` will pass the info down to the application by using the `cr_op` operation flag: `CR_LOAD`, `CR_STEP` or `CR_UNLOAD`. For example, in case of unload the application may be able to intercept and deal with something before the binary is fully unloaded (like saving some internal state).
 
 This is everything needed to live code reload using `cr.h`!
 
@@ -109,11 +109,11 @@ While live coding, the chances to introduce problems are high as we get into a f
 In practice, `cr.h` tries to emulate the debugger here too. On windows it will use [structured exception handling][18] to detect some common problems as illegal instruction, access violation and some others. In which case, `cr.h` will catch it and try to unload the problematic binary and revert back to the previous working one, effectively doing a rollback.
 Over Linux, the same happens but it is managed using the OS signal handlers.
 
-All this enables a seamsly development flow that is pleasing to use.
+All this enables a seamless development flow that is pleasing to use.
 
 #### Problem: State Transfer
 
-A very common way to keep state between reload is to use the heap and pass pointers to objects so the host can hand it over the next reload. This requires that the plugin instances share the same allocator, it may be managed by the host or via a common crt (dynamic crt on MSVC). One limitation of this approach is with global and local static states.
+A very common way to keep state between reloads is to use the heap and pass pointers to objects so the host can pass it to the next reload. This requires that the plugin instances share the same allocator, it may be managed by the host or via a common crt (dynamic crt on MSVC). One limitation of this approach is with global and local static states.
 
 For the first case, using the heap model the user may decide to manage its own states by filling a struct with pointers to objects and handing it over so `cr.h` can hold it between reloads using the `userdata` pointer in the `cr_plugin` context. Other than the same allocator being required, care should be taken with destructors called during unload.
 
@@ -122,7 +122,7 @@ The second case is when dealing with static state (both global and local), it wo
 Here some things to be aware when using `CR_STATE`:
 
 - Do not save objects that have pointers to anything that is not in the heap;
-- Do not save objects that have non trivial constructors and destructors, they may or may not work;
+- Do not save objects that have non-trivial constructors and destructors, they may or may not work;
 
 <br/>
 All this is subject to change as I'll be hardening it while using in my projects. I have some more ideas in the back of my mind on how to improve all this by using more debug info, but not sure if it is worth the effort. Enough yak shaving.
