@@ -293,7 +293,7 @@ This command would then be able to install the required vscode extensions if nee
 
 ## Feedback
 
-Help me improving this text by submitting fixes for wrong wording/phrasing or typos in [this repo issue tracker](https://github.com/fungos/fungos.github.io/issues) or by commenting on twitter or elsewhere!
+Help me improving this text by submitting fixes for wrong wording/phrasing or typos in [this repo issue tracker](https://github.com/fungos/fungos.github.io/issues) or by commenting on ~twitter~ or elsewhere!
 
 ## Updates
 
